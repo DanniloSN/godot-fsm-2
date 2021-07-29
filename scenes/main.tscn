@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/fsm/char.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/ocean.gd" type="Script" id=2]
+
+[node name="Main" type="Node"]
+
+[node name="Char" parent="." instance=ExtResource( 1 )]
+position = Vector2( 426.69, 143.947 )
+
+[node name="Beach" type="StaticBody2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Beach"]
+color = Color( 0.807843, 0.721569, 0.027451, 1 )
+polygon = PoolVector2Array( -10.2328, 404.634, 145.675, 413.543, 345.236, 450.07, 559.053, 519.56, 731.887, 556.978, 977.776, 569.45, 1010.74, 562.323, 1037.47, 587.268, -7.56009, 582.814 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Beach"]
+polygon = PoolVector2Array( -10.3155, 404.194, 147.849, 413.708, 349.42, 451.168, 560.504, 519.547, 732.939, 557.602, 978.51, 569.494, 1010.02, 562.953, 1039.16, 589.116, -6.74787, 582.575 )
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2( 425.163, 239.971 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform"]
+position = Vector2( -31.954, 24.386 )
+color = Color( 0.6, 0.592157, 0.576471, 1 )
+polygon = PoolVector2Array( -490.385, -33.862, 519.615, -33.862, 459.615, 76.138, -87.0876, 108.685, -400.385, 76.138 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform"]
+polygon = PoolVector2Array( -522.365, -9.2652, 487.871, -9.51599, 427.504, 100.403, -119.314, 133.35, -432.346, 100.949 )
+
+[node name="Ocean" type="Area2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Ocean"]
+modulate = Color( 1, 1, 1, 0.337255 )
+color = Color( 0.0941176, 0.47451, 0.882353, 1 )
+polygon = PoolVector2Array( 870, 428, 1002, 425, 1036, 529, 1010, 562, 979.44, 569.01, 732.85, 557.091, 559.893, 518.95, 349.06, 451.145, 217.686, 426.247 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ocean"]
+polygon = PoolVector2Array( 217.25, 426.75, 1002.5, 425, 1036.75, 528.25, 1010.25, 562.5, 977.75, 569, 731.75, 557.25, 559, 519.25, 348, 451.5 )
+
+[connection signal="body_entered" from="Ocean" to="Ocean" method="_on_ocean_body_entered"]
+[connection signal="body_exited" from="Ocean" to="Ocean" method="_on_ocean_body_exited"]
